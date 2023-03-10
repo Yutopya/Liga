@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae9209b3-1d11-4b49-9c0b-972fabcc4e6f" name="Changes" comment="" />
+    <list default="true" id="ae9209b3-1d11-4b49-9c0b-972fabcc4e6f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LigaBuena/Equipo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LigaBuena/Equipo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LigaBuena/Gestion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LigaBuena/Gestion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LigaBuena/Jugador.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LigaBuena/Jugador.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LigaBuena/Liga.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LigaBuena/Liga.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Equipo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Equipo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gestion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gestion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Jugador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Jugador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Liga.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Liga.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2MdqXsX3axp6nYdeqoSYMgWQDLB" />
   <component name="ProjectViewState">
@@ -18,7 +38,9 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/Yurim/Desktop/Programacion/Programacion (asignatura)/Hoja9"
+    "last_opened_file_path": "C:/Users/Yurim/Desktop/Programacion/Programacion (asignatura)/LigaBuena",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "discord-application"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -31,5 +53,26 @@
       <updated>1678107849558</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="27" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -5,7 +5,7 @@ public class Main {
         //Menú inicial: Andrea y Ruy
         //Emparejamientos: Eugenia
         //Puntuación y clasificación: Raúl
-        //Comprobaciones y limpieza de codigo: Ruy
+        //Comprobaciones, limpieza y comentarios de codigo: Ruy
 
         Gestion Liga = new Gestion();
         Liga.menuInicial();

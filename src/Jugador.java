@@ -2,15 +2,12 @@ public class Jugador {
     private String nombre;
     private String apellido;
     private String clase;
-    private Equipo EQ;
-
-    public Jugador(String nombre, String apellido, String clase, Equipo EQ) {
+    private String EQ;
+    public Jugador(String nombre, String apellido, String clase) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.clase = clase;
-        this.EQ = EQ;
     }
-
     public String getNombre() {
         return nombre;
     }
@@ -35,11 +32,11 @@ public class Jugador {
         this.clase = clase;
     }
 
-    public Equipo getEQ() {
+    public String getEQ() {
         return EQ;
     }
 
-    public void setEQ(Equipo EQ) {
+    public void setEQ(String EQ) {
         this.EQ = EQ;
     }
 
@@ -48,6 +45,6 @@ public class Jugador {
         return "Nombre: " + nombre +
                 ", Apellido: " + apellido +
                 ", Clase: " + clase +
-                ", Equipo: " + EQ.getNombre();
+                ", Equipo: " + EQ;
     }
 }

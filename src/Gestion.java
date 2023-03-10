@@ -12,9 +12,6 @@ public class Gestion {
         int menuGestionJugadores;
         int selectorPrincipal;
         System.out.println("Le damos la bienvenida al programa de creacion de liga");
-        //Estos equipos y jugadores estan para que no los tengas que añadir manualmente
-        //cada vez que quieres probar los enfrentamientos
-        crearEquipos();
 
         do {
             System.out.println("Elija el menu al que quiere acceder:\n");
@@ -37,13 +34,16 @@ public class Gestion {
                         System.out.println("0-Listar Equipos");
                         System.out.println("1-Crear Equipo");
                         System.out.println("2-Modificar Equipo");
-                        System.out.println("3-Eliminar Equipo");
-                        System.out.println("4-Salir a la selección de menús");
-                        menuGestionlistEquipos = sacarYcomprobarNumero(0, 4);
+                        System.out.println("3-Fichar Jugador");
+                        System.out.println("4-Despedir Jugador");
+                        System.out.println("5-Eliminar Equipo");
+                        System.out.println("6-Insertar Equipos (añade equipos para hacer pruebas)");
+                        System.out.println("7-Salir a la selección de menús");
+                        menuGestionlistEquipos = sacarYcomprobarNumero(0, 7);
                         System.out.println("\n");
                         switch (menuGestionlistEquipos) {
                             case 0:
-                                pipoliga.mostrarEquipos();
+                                pipoliga.mostrarEquiposYPlantilla();
                                 System.out.println("\n");
                                 break;
                             case 1:
@@ -55,9 +55,15 @@ public class Gestion {
                                 System.out.println("\n");
                                 break;
                             case 3:
-                                valEliminar = true;
-                                System.out.println("ATENCIÓN: Si elimina un equipo, se eliminarán todos los jugadores pertenecientes a ese equipo");
-                                System.out.println("Si desea cambiar de equipo alguno de ellos, vaya al menu de Equipos ---> Transferir jugador\n");
+                                pipoliga.ficharJugador();
+                                System.out.println("\n");
+                                break;
+                            case 4:
+                                pipoliga.rmJugadorDeEquipo();
+                                System.out.println("\n");
+                                break;
+                            case 5:
+                                System.out.println("Va a eliminar un equipo y desvincular todos sus jugadores del mismo");
                                 System.out.println("¿Segur@ que quiere continuar?");
                                 valEliminar = sacarYcomprobarYoN();
                                 if (valEliminar) {
@@ -67,7 +73,12 @@ public class Gestion {
                                 }
                                 System.out.println("\n");
                                 break;
-                            case 4:
+                            case 6:
+                                //Estos equipos y jugadores estan para que no los tengas que añadir manualmente
+                                //cada vez que quieres probar los enfrentamientos
+                                crearEquipos();
+                                break;
+                            case 7:
                                 valMenuIni = false;
                                 break;
                         }
@@ -98,11 +109,11 @@ public class Gestion {
                                 System.out.println("\n");
                                 break;
                             case 2:
-                                pipoliga.modJugadorEquipo();
+                                pipoliga.modJugador();
                                 System.out.println("\n");
                                 break;
                             case 3:
-                                pipoliga.rmJugadorDeEquipo();
+                                pipoliga.rmJugador();
                                 System.out.println("\n");
                                 break;
                             case 4:
@@ -117,10 +128,11 @@ public class Gestion {
                     } while (valMenuIni);
                     break;
                 case 3:
+                    int longitudEQ=pipoliga.getTodosEquipos().size();
                     int numEquipos;
                     int selectorEquipos;
                     int cantidadEquipos = pipoliga.getTodosEquipos().size();
-                    ArrayList<Equipo> listEquipos = new ArrayList<>();
+                    ArrayList<Equipo> listEquipos = new ArrayList<Equipo>();
                     int numJornadas;
                     String[][] calendario;
                     String[][] resultados;
@@ -128,115 +140,119 @@ public class Gestion {
                     Equipo equipo2;
                     Equipo equipoAux;
 
-                    System.out.println("¿Cuántos equipos van a participar? (Entre 3 y " + cantidadEquipos + ")");
-                    numEquipos = sacarYcomprobarNumero(3, cantidadEquipos);
-                    pipoliga.mostrarEquipos();
-                    for (int i = 1; i < numEquipos + 1; i++) {
-                        System.out.println("\n Introduce el id del equipo " + i + ":");
-                        selectorEquipos = sacarYcomprobarNumero(0, cantidadEquipos - 1);
-                        listEquipos.add(pipoliga.getTodosEquipos().get(selectorEquipos));
+                        if(longitudEQ>=3){
+                        System.out.println("¿Cuántos equipos van a participar? (Entre 3 y " + cantidadEquipos + ")");
+                        numEquipos = sacarYcomprobarNumero(3, cantidadEquipos);
+                        pipoliga.mostrarEquipos();
+                        for (int i = 1; i < numEquipos + 1; i++) {
+                            System.out.println("\n Introduce el id del equipo " + i + ":");
+                            selectorEquipos = sacarYcomprobarNumero(0, cantidadEquipos - 1);
+                            listEquipos.add(pipoliga.getTodosEquipos().get(selectorEquipos));
 
-                    }
-
-                    // Calcular el numero de jornadas de la liga en caso de que el numero de equipos
-                    // sea PAR
-
-                    if (numEquipos % 2 == 0) {
-
-                        numJornadas = numEquipos - 1; // Mostrar cuantas jornadas hay dado el numero de equipos
-
-                        System.out.println("Con " + numEquipos + " equipos hay " + numJornadas + " jornadas");
-                        System.out.println();
-
-                        // Crear la matriz para almacenar la distribución de jornadas
-                        calendario = new String[numJornadas][listEquipos.size() / 2];
-                        resultados = new String[numJornadas][listEquipos.size() / 2];
-                        // Generar la distribución de enfrentamientos
-                        for (int i = 0; i < numJornadas; i++) {
-                            for (int j = 0; j < listEquipos.size() / 2; j++) {
-
-                                // Seleccionar los equipos para los enfrentamientos
-                                equipo1 = listEquipos.get(j);
-                                equipo2 = listEquipos.get(listEquipos.size() - j - 1);
-
-                                // Validar que los equipos seleccionados no se repiten en la misma jornada
-                                if (equipo1.equals(equipo2)) {
-                                    equipo2 = listEquipos.get(listEquipos.size() - j - 2);
-                                }
-                                // Añadir el partido a la matriz de jornadas
-                                calendario[i][j] = equipo1.getNombre() + " vs " + equipo2.getNombre();
-                                resultados[i][j] = generarResultado(equipo1, equipo2);
-                                //Aqui es donde se tienen que asignar resultados
-                            }
-                            // Rotar los equipos para la siguiente jornada
-                            equipoAux = listEquipos.remove(1);
-                            listEquipos.add(equipoAux);
                         }
-                        // Mostrar todas las jornadas ya creadas
-                        for (int i = 0; i < numJornadas; i++) {
-                            System.out.println("Jornada " + (i + 1) + ":");
-                            for (int j = 0; j < listEquipos.size() / 2; j++) {
-                                System.out.println(calendario[i][j]);
-                                System.out.println(resultados[i][j]);
-                            }
-                            System.out.println();
-                        }
-                        //Mostrar la clasificación final de los equipos
-                        System.out.println("La clasificación final de la liga ha sido:");
-                        Gestion.mostrarResultados(listEquipos);
+
                         // Calcular el numero de jornadas de la liga en caso de que el numero de equipos
-                        // sea IMPAR
-                    } else {
-                        numJornadas = numEquipos; // Mostrar cuantas jornadas hay dado el numero de equipos
-                        System.out.println("Con " + numEquipos + " equipos hay " + numJornadas + " jornadas");
-                        System.out.println();
+                        // sea PAR
 
-                        // Crear la matriz para almacenar la distribución de jornadas
-                        calendario = new String[numJornadas][listEquipos.size() / 2];
-                        resultados = new String[numJornadas][listEquipos.size() / 2];
-                        // Generar la distribución de enfrentamientos
-                        for (int i = 0; i < numJornadas; i++) {
-                            for (int j = 0; j < listEquipos.size() / 2; j++) {
-                                // Seleccionar los equipos para los enfrentamientos
-                                equipo1 = listEquipos.get(j);
-                                equipo2 = listEquipos.get(listEquipos.size() - j - 1);
-                                // Validar que los equipos seleccionados no se repiten en la misma jornada
-                                if (equipo1.equals(equipo2)) {
-                                    equipo2 = listEquipos.get(listEquipos.size() - j - 2);
-                                }
-                                // Añadir el partido a la matriz de jornadas
-                                calendario[i][j] = equipo1.getNombre() + " vs " + equipo2.getNombre();
-                                resultados[i][j] = generarResultado(equipo1, equipo2);
-                                //Aqui es donde se tienen que asignar resultados
-                            }
-                            // Rotar los equipos para la siguiente jornada
-                            equipoAux = listEquipos.remove(0);
-                            listEquipos.add(equipoAux);
-                        }
-                        // Mostrar todas las jornadas ya creadas
-                        for (int i = 0; i < numJornadas; i++) {
+                        if (numEquipos % 2 == 0) {
 
-                            System.out.println("Jornada " + (i + 1) + ":");
+                            numJornadas = numEquipos - 1; // Mostrar cuantas jornadas hay dado el numero de equipos
 
-                            for (int j = 0; j < listEquipos.size() / 2; j++) {
-                                System.out.println(calendario[i][j]);
-                                System.out.println(resultados[i][j]);
-                            }
+                            System.out.println("Con " + numEquipos + " equipos hay " + numJornadas + " jornadas");
                             System.out.println();
+
+                            // Crear la matriz para almacenar la distribución de jornadas
+                            calendario = new String[numJornadas][listEquipos.size() / 2];
+                            resultados = new String[numJornadas][listEquipos.size() / 2];
+                            // Generar la distribución de enfrentamientos
+                            for (int i = 0; i < numJornadas; i++) {
+                                for (int j = 0; j < listEquipos.size() / 2; j++) {
+
+                                    // Seleccionar los equipos para los enfrentamientos
+                                    equipo1 = listEquipos.get(j);
+                                    equipo2 = listEquipos.get(listEquipos.size() - j - 1);
+
+                                    // Validar que los equipos seleccionados no se repiten en la misma jornada
+                                    if (equipo1.equals(equipo2)) {
+                                        equipo2 = listEquipos.get(listEquipos.size() - j - 2);
+                                    }
+                                    // Añadir el partido a la matriz de jornadas
+                                    calendario[i][j] = equipo1.getNombre() + " vs " + equipo2.getNombre();
+                                    resultados[i][j] = generarResultado(equipo1, equipo2);
+                                    //Aqui es donde se tienen que asignar resultados
+                                }
+                                // Rotar los equipos para la siguiente jornada
+                                equipoAux = listEquipos.remove(1);
+                                listEquipos.add(equipoAux);
+                            }
+                            // Mostrar todas las jornadas ya creadas
+                            for (int i = 0; i < numJornadas; i++) {
+                                System.out.println("Jornada " + (i + 1) + ":");
+                                for (int j = 0; j < listEquipos.size() / 2; j++) {
+                                    System.out.println(calendario[i][j]);
+                                    System.out.println(resultados[i][j]);
+                                }
+                                System.out.println();
+                            }
+                            //Mostrar la clasificación final de los equipos
+                            System.out.println("La clasificación final de la liga ha sido:");
+                            Gestion.mostrarResultados(listEquipos);
+                            // Calcular el numero de jornadas de la liga en caso de que el numero de equipos
+                            // sea IMPAR
+                        } else {
+                            numJornadas = numEquipos; // Mostrar cuantas jornadas hay dado el numero de equipos
+                            System.out.println("Con " + numEquipos + " equipos hay " + numJornadas + " jornadas");
+                            System.out.println();
+
+                            // Crear la matriz para almacenar la distribución de jornadas
+                            calendario = new String[numJornadas][listEquipos.size() / 2];
+                            resultados = new String[numJornadas][listEquipos.size() / 2];
+                            // Generar la distribución de enfrentamientos
+                            for (int i = 0; i < numJornadas; i++) {
+                                for (int j = 0; j < listEquipos.size() / 2; j++) {
+                                    // Seleccionar los equipos para los enfrentamientos
+                                    equipo1 = listEquipos.get(j);
+                                    equipo2 = listEquipos.get(listEquipos.size() - j - 1);
+                                    // Validar que los equipos seleccionados no se repiten en la misma jornada
+                                    if (equipo1.equals(equipo2)) {
+                                        equipo2 = listEquipos.get(listEquipos.size() - j - 2);
+                                    }
+                                    // Añadir el partido a la matriz de jornadas
+                                    calendario[i][j] = equipo1.getNombre() + " vs " + equipo2.getNombre();
+                                    resultados[i][j] = generarResultado(equipo1, equipo2);
+                                    //Aqui es donde se tienen que asignar resultados
+                                }
+                                // Rotar los equipos para la siguiente jornada
+                                equipoAux = listEquipos.remove(0);
+                                listEquipos.add(equipoAux);
+                            }
+                            // Mostrar todas las jornadas ya creadas
+                            for (int i = 0; i < numJornadas; i++) {
+
+                                System.out.println("Jornada " + (i + 1) + ":");
+
+                                for (int j = 0; j < listEquipos.size() / 2; j++) {
+                                    System.out.println(calendario[i][j]);
+                                    System.out.println(resultados[i][j]);
+                                }
+                                System.out.println();
+                            }
+                            //Mostrar la clasificación final de los equipos
+                            System.out.println("La clasificación final de la liga ha sido:");
+                            Gestion.mostrarResultados(listEquipos);
                         }
-                        //Mostrar la clasificación final de los equipos
-                        System.out.println("La clasificación final de la liga ha sido:");
-                        Gestion.mostrarResultados(listEquipos);
-                    }
-                    valEliminar = true;
-                    System.out.print("¿Desea eliminar la puntuación? ");
-                    valEliminar = sacarYcomprobarYoN();
-                    if (valEliminar) {
-                        rmPuntuacion();
-                    } else {
-                        System.out.println("La puntuación de los equipos ha sido mantenida");
-                    }
-                    System.out.println("\n");
+                        valEliminar = true;
+                        System.out.print("¿Desea eliminar la puntuación? ");
+                        valEliminar = sacarYcomprobarYoN();
+                        if (valEliminar) {
+                            rmPuntuacion();
+                        } else {
+                            System.out.println("La puntuación de los equipos ha sido mantenida");
+                        }
+                        System.out.println("\n");
+                        }else{
+                            System.out.println("No hay suficientes equipos para empezar la liga, el minimo son 3.\n");
+                        }
                     break;
                 case 4:
 
@@ -255,7 +271,7 @@ public class Gestion {
 
     public static int sacarYcomprobarNumero(int numeroMin, int numeroMax) {
         int numeroOG = 0;
-        boolean valGeneral = true;
+        boolean valGeneral;
         Scanner lector = new Scanner(System.in);
         do {
             valGeneral = true;
@@ -310,7 +326,7 @@ public class Gestion {
         char caracter;
         String cadena;
         boolean comprobante = true;
-        boolean comprobanteBucle = true;
+        boolean comprobanteBucle;
         System.out.println("Y/N");
         do {
             //Pide un caracter
@@ -340,9 +356,11 @@ public class Gestion {
         pipoliga.addEquipo("RayoVallecano");
         pipoliga.addEquipo("Karma");
         pipoliga.addEquipo("Madrid");
-        pipoliga.addJugadorAEquipoNombre("RanniTawani", "maria", "anio", "2ºA");
-        pipoliga.addJugadorAEquipoNombre("Pipo", "anton", "anio", "1ºB");
-        pipoliga.addJugadorAEquipoNombre("RayoVallecano", "papo", "anio", "2ºB");
+        pipoliga.addJugador("RanniTawani", "maria", "navarro", "2ºA");
+        pipoliga.addJugador("Pipo", "anton", "pedrolo", "1ºB");
+        pipoliga.addJugador("RayoVallecano", "papo", "pipopapo", "2ºB");
+        pipoliga.addJudador("Geronimo","Francisco","1ºA");
+        pipoliga.addJudador("Toad","Pipa","2ºA");
     }
 
     //Genera un resultado aleatoria entre 2 equipos
