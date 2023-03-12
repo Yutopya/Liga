@@ -128,10 +128,15 @@ public class Gestion {
                     } while (valMenuIni);
                     break;
                 case 3:
+                    int k=0;
                     int longitudEQ=pipoliga.getTodosEquipos().size();
+                    int longitudLista;
                     int numEquipos;
                     int selectorEquipos;
                     int cantidadEquipos = pipoliga.getTodosEquipos().size();
+                    boolean valEquipo;
+                    boolean valLista;
+                    String nEQ;
                     ArrayList<Equipo> listEquipos = new ArrayList<Equipo>();
                     int numJornadas;
                     String[][] calendario;
@@ -141,15 +146,35 @@ public class Gestion {
                     Equipo equipoAux;
 
                         if(longitudEQ>=3){
-                        System.out.println("¿Cuántos equipos van a participar? (Entre 3 y " + cantidadEquipos + ")");
-                        numEquipos = sacarYcomprobarNumero(3, cantidadEquipos);
-                        pipoliga.mostrarEquipos();
-                        for (int i = 1; i < numEquipos + 1; i++) {
-                            System.out.println("\n Introduce el id del equipo " + i + ":");
-                            selectorEquipos = sacarYcomprobarNumero(0, cantidadEquipos - 1);
-                            listEquipos.add(pipoliga.getTodosEquipos().get(selectorEquipos));
+                            System.out.println("¿Cuántos equipos van a participar? (Entre 3 y " + cantidadEquipos + ")");
+                            numEquipos = sacarYcomprobarNumero(3, cantidadEquipos);
+                            pipoliga.mostrarEquipos();
+                                for (int i = 1; i < numEquipos + 1; i++) {
+                                    do {
+                                        valEquipo = false;
+                                        System.out.println("\n Introduce el id del equipo " + i + ":");
+                                        selectorEquipos = sacarYcomprobarNumero(0, cantidadEquipos - 1);
+                                        longitudLista = listEquipos.size();
+                                        nEQ = pipoliga.getTodosEquipos().get(selectorEquipos).getNombre();
+                                        if (longitudLista <= 0) {
+                                            listEquipos.add(pipoliga.getTodosEquipos().get(selectorEquipos));
 
-                        }
+                                        } else {
+                                            k = 0;
+                                            valLista=true;
+                                            do {
+                                                if (nEQ.equals(listEquipos.get(k).getNombre())) {
+                                                    System.out.println("No se puede añadir el mismo equipo 2 veces");
+                                                    valEquipo = true;
+                                                } else {
+                                                    listEquipos.add(pipoliga.getTodosEquipos().get(selectorEquipos));
+                                                    valLista=false;
+                                                }
+                                                k++;
+                                            } while (valLista && k < longitudLista);
+                                        }
+                                    } while (valEquipo);
+                                }
 
                         // Calcular el numero de jornadas de la liga en caso de que el numero de equipos
                         // sea PAR
@@ -187,7 +212,9 @@ public class Gestion {
                             }
                             // Mostrar todas las jornadas ya creadas
                             for (int i = 0; i < numJornadas; i++) {
+                                System.out.println("--------------");
                                 System.out.println("Jornada " + (i + 1) + ":");
+                                System.out.println("--------------\n");
                                 for (int j = 0; j < listEquipos.size() / 2; j++) {
                                     System.out.println(calendario[i][j]);
                                     System.out.println(resultados[i][j]);
@@ -327,7 +354,7 @@ public class Gestion {
         String cadena;
         boolean comprobante = true;
         boolean comprobanteBucle;
-        System.out.println("Y/N");
+        System.out.println("\033[32m"+"Y"+ "\u001B[0m"+"/"+"\033[31m"+"N"+ "\u001B[0m");
         do {
             //Pide un caracter
             cadena = lector.nextLine();
@@ -356,11 +383,13 @@ public class Gestion {
         pipoliga.addEquipo("RayoVallecano");
         pipoliga.addEquipo("Karma");
         pipoliga.addEquipo("Madrid");
+        pipoliga.addEquipo("DescansacionFC");
         pipoliga.addJugador("RanniTawani", "maria", "navarro", "2ºA");
         pipoliga.addJugador("Pipo", "anton", "pedrolo", "1ºB");
         pipoliga.addJugador("RayoVallecano", "papo", "pipopapo", "2ºB");
         pipoliga.addJudador("Geronimo","Francisco","1ºA");
         pipoliga.addJudador("Toad","Pipa","2ºA");
+        pipoliga.addJugador("DescansacionFC", "Mimir", "Two", "2ºB");
     }
 
     //Genera un resultado aleatoria entre 2 equipos
@@ -370,10 +399,10 @@ public class Gestion {
 
         if (numAleatorio == 0) {
             equipo1.setPuntos(equipo1.getPuntos() + 1);
-            return ("El equipo " + equipo1.getNombre() + " ha ganado\n");
+            return ("\033[32m" + "El equipo " + equipo1.getNombre() + " ha ganado.\n" + "\u001B[0m");
         } else {
             equipo2.setPuntos(equipo2.getPuntos() + 1);
-            return ("El equipo " + equipo2.getNombre() + " ha ganado\n");
+            return ("\033[32m" + "El equipo " + equipo2.getNombre() + " ha ganado.\n" + "\u001B[0m");
         }
     }
 

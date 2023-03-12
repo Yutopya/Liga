@@ -48,7 +48,7 @@ public class Liga {
                 '}';
     }
 
-//AÑADIR ---------------------------------------------------------------------------------------------
+    //AÑADIR ---------------------------------------------------------------------------------------------
     public void addEquipo(String nombre) {
         todosEquipos.add(new Equipo(nombre));
     }
@@ -65,8 +65,10 @@ public class Liga {
     public void addJugador(Jugador item, int idEquipo) {
         todosEquipos.get(idEquipo).addJugador(item);
     }
-    public void addJudador(String nombre, String apellido, String clase){
-        todosJugadores.add(new Jugador(nombre,apellido,clase));
+
+    //Dados datos de jugador, añade un jugador con esos datos
+    public void addJudador(String nombre, String apellido, String clase) {
+        todosJugadores.add(new Jugador(nombre, apellido, clase));
     }
 
     //Dado los datos de un jugador, se añade un jugador con esos datos y tambien al equipo correspondiente.
@@ -144,10 +146,13 @@ public class Liga {
             System.out.println("¿Desea añadir el jugador creado a un equipo?");
             YoN = Gestion.sacarYcomprobarYoN();
             if (YoN) {
+                //El usuario elije el id del equipo al que quiere añadir el jugador
                 this.mostrarEquiposYPlantilla();
                 System.out.println("Elija id el equipo al que pertenece el jugador");
                 longitud = todosEquipos.size();
                 num = Gestion.sacarYcomprobarNumero(0, longitud);
+
+                //Se asigna el equipo de ese jugador al elegido y se añade ese objeto jugador al equipo correspondiente.
                 todosJugadores.get(lastJugador).setEQ(todosEquipos.get(num).getNombre());
                 todosEquipos.get(0).addJugador(todosJugadores.get(lastJugador));
             } else {
@@ -159,30 +164,31 @@ public class Liga {
     }
 
     //Menu para añadir un jugador sin equipo asignado
-    public void ficharJugador(){
+    public void ficharJugador() {
         int idJugador;
         int longitudEQ = todosEquipos.size();
-        int longitudPlantilla;
-        int longitudJuga=todosJugadores.size();
+        int longitudJuga = todosJugadores.size();
         int idEquipo = 0;
 
         this.mostrarEquipos();
-        System.out.println("Seleccione un equipo");
-        idEquipo=Gestion.sacarYcomprobarNumero(0,longitudEQ);
+        if(longitudEQ>0){
+            System.out.println("Seleccione un equipo");
+            idEquipo = Gestion.sacarYcomprobarNumero(0, longitudEQ);
 
-        if(longitudJuga>0){
-            this.mostrarJugadores();
-            System.out.println("Seleccione el jugador que quiere añadir a ese equipo");
-            idJugador=Gestion.sacarYcomprobarNumero(0,longitudJuga);
+            if (longitudJuga > 0) {
+                this.mostrarJugadores();
+                System.out.println("Seleccione el jugador que quiere añadir a ese equipo");
+                idJugador = Gestion.sacarYcomprobarNumero(0, longitudJuga);
 
-            if(todosJugadores.get(idJugador).getEQ()==null){
-                todosJugadores.get(idJugador).setEQ(todosEquipos.get(idEquipo).getNombre());
-                todosEquipos.get(idEquipo).getplantilla().add(todosJugadores.get(idJugador));
-            }else{
-                System.out.println("Este jugador ya pertenece a un equipo");
+                if (todosJugadores.get(idJugador).getEQ() == null) {
+                    todosJugadores.get(idJugador).setEQ(todosEquipos.get(idEquipo).getNombre());
+                    todosEquipos.get(idEquipo).getplantilla().add(todosJugadores.get(idJugador));
+                } else {
+                    System.out.println("Este jugador ya pertenece a un equipo");
+                }
+            } else {
+                System.out.println("No hay jugadores creados.");
             }
-        }else{
-            System.out.println("No hay jugadores creados.");
         }
     }
 //MODIFICAR ----------------------------------------------------------------------------
@@ -191,31 +197,33 @@ public class Liga {
     public void modEquipoGuiado() {
         int num;
         String nombreEquipo;
-        int longitudEQ;
+        int longitudEQ = todosEquipos.size();
         int longitudjug;
 
-        //Muestra los equipos y le da a elegir
         this.mostrarEquipos();
-        System.out.println("Elija id del equipo que quiere modificar");
-        longitudEQ = todosEquipos.size();
-        num = Gestion.sacarYcomprobarNumero(0, longitudEQ);
+        if (longitudEQ > 0) {
+            //Muestra los equipos y le da a elegir
+            System.out.println("Elija id del equipo que quiere modificar");
+            num = Gestion.sacarYcomprobarNumero(0, longitudEQ);
 
-        //Una vez elegido el equipo, se pide al usuario que introduzca el nuevo nombre (no espacios ni numeros)
-        System.out.println("Introduzca el nuevo nombre del equipo: ");
-        nombreEquipo = Gestion.sacarYcomprobarString();
+            //Una vez elegido el equipo, se pide al usuario que introduzca el nuevo nombre (no espacios ni numeros)
+            System.out.println("Introduzca el nuevo nombre del equipo: ");
+            nombreEquipo = Gestion.sacarYcomprobarString();
 
-        //Ahora que tenemos el nombre antiguo y nuevo del equipo, el metodo busca los Jugadores con ese nombre
-        // y se lo cambia por el nuevo ANTES de asignarle el nuevo nombre al equipo.
-        longitudjug = todosJugadores.size();
-        String nAnterior = todosEquipos.get(num).getNombre();
-        for (int i = 0; i < longitudjug; i++) {
-            if (todosJugadores.get(i).getEQ().equals(nAnterior)) {
-                todosJugadores.get(i).setEQ(nombreEquipo);
+            //Ahora que tenemos el nombre antiguo y nuevo del equipo, el metodo busca los Jugadores con ese nombre
+            // y se lo cambia por el nuevo ANTES de asignarle el nuevo nombre al equipo.
+            longitudjug = todosJugadores.size();
+            String nAnterior = todosEquipos.get(num).getNombre();
+            for (int i = 0; i < longitudjug; i++) {
+                if (todosJugadores.get(i).getEQ().equals(nAnterior)) {
+                    todosJugadores.get(i).setEQ(nombreEquipo);
+                }
             }
+            todosEquipos.get(num).setNombre(nombreEquipo);
+            System.out.println("Nombre cambiado con Exito");
         }
-        todosEquipos.get(num).setNombre(nombreEquipo);
-        System.out.println("Nombre cambiado con Exito");
     }
+
 
     //Muestra menu en el cual, despues de seleccionar un jugador, te muestra opciones que hay para modificarle
     //Se modifica tanto el jugador que esta en la plantilla de su equipo, como el jugador que esta en la lista todosJugadores
@@ -290,9 +298,9 @@ public class Liga {
         int equipoOG;
         int longitudEQ = todosEquipos.size();
         int longitudPlantilla;
-        int longitudJuga=todosJugadores.size()-1;
+        int longitudJuga = todosJugadores.size() - 1;
         int idEquipo = 0;
-        Jugador nJugador=null;
+        Jugador nJugador = null;
 
         //Muestra y da a elegir un equipos
         this.mostrarEquiposYPlantilla();
@@ -319,7 +327,7 @@ public class Liga {
                 //Se añade el jugador al nuevo equipo y despues se elimina del anterior
                 System.out.println("El jugador: " + todosEquipos.get(equipoOG).getplantilla().get(idEquipo).getNombre() + " a sido transferido al Equipo: " + todosEquipos.get(idEquipoTransfer).getNombre());
                 todosEquipos.get(idEquipoTransfer).addJugador(todosEquipos.get(equipoOG).getplantilla().get(idJugador));
-                nJugador=todosEquipos.get(equipoOG).getplantilla().get(idJugador);
+                nJugador = todosEquipos.get(equipoOG).getplantilla().get(idJugador);
                 for (int i = 0; i <= longitudJuga; i++) {
                     if (todosJugadores.get(i).equals(nJugador)) {
                         todosJugadores.get(i).setEQ(todosEquipos.get(idEquipoTransfer).getNombre());
@@ -408,77 +416,79 @@ public class Liga {
     public void rmEquipo() {
 
         int idEquipo;
-        int longitudEQ;
+        int longitudEQ=todosEquipos.size();
         int longitudJuga;
         String nombreEQ;
-        longitudEQ = todosEquipos.size();
 
-        //selecciona un equipo
         this.mostrarEquiposYPlantilla();
-        System.out.println("Introduzca el id del Equipo");
-        idEquipo = Gestion.sacarYcomprobarNumero(0, longitudEQ);
+        if(longitudEQ>0){
+            //selecciona un equipo
+            System.out.println("Introduzca el id del Equipo");
+            idEquipo = Gestion.sacarYcomprobarNumero(0, longitudEQ);
 
-        //Guarda el nombre del equipo a eliminar en una variable
-        nombreEQ = todosEquipos.get(idEquipo).getNombre();
-        System.out.println("Equipo " + nombreEQ + " ha sido eliminad@");
-        longitudJuga = todosJugadores.size() - 1;
+            //Guarda el nombre del equipo a eliminar en una variable
+            nombreEQ = todosEquipos.get(idEquipo).getNombre();
+            System.out.println("Equipo " + nombreEQ + " ha sido eliminad@");
+            longitudJuga = todosJugadores.size() - 1;
 
-        //Comprueba que haya jugadores
-        if (longitudJuga > 0) {
-            for (int i = 0; i <= longitudJuga; i++) {
+            //Comprueba que haya jugadores
+            if (longitudJuga > 0) {
+                for (int i = 0; i <= longitudJuga; i++) {
 
-                //Si encuentra algun jugador con ese equipo asignado, reasigna su equipo a NULL
-                try{
-                    if (todosJugadores.get(i).getEQ().equals(nombreEQ)) {
-                        todosJugadores.get(i).setEQ(null);
+                    //Si encuentra algun jugador con ese equipo asignado, reasigna su equipo a NULL
+                    try {
+                        if (todosJugadores.get(i).getEQ().equals(nombreEQ)) {
+                            todosJugadores.get(i).setEQ(null);
+                        }
+                    } catch (NullPointerException NPE) {
                     }
-                }catch(NullPointerException NPE){
                 }
+
+                //Se elimina la plantilla de dicho equipo
+                todosEquipos.get(idEquipo).rmPlantilla();
             }
 
-            //Se elimina la plantilla de dicho equipo
-            todosEquipos.get(idEquipo).rmPlantilla();
+            //Por ultimo, se elimina el equipo y se muestran los equipos restantes
+            todosEquipos.remove(idEquipo);
+            this.mostrarEquiposYPlantilla();
         }
 
-        //Por ultimo, se elimina el equipo y se muestran los equipos restantes
-        todosEquipos.remove(idEquipo);
-        this.mostrarEquiposYPlantilla();
     }
 
     //Jugador
 
     //Elimina un jugador de la lista todosJugadores y por lo tanto el objeto jugador equivalente se elimina de todos los equipos
-    public void rmJugador(){
+    public void rmJugador() {
         int idJugador;
-        int longitudEQ=todosEquipos.size()-1;
-        int longitudJuga=todosJugadores.size();
+        int longitudEQ = todosEquipos.size() - 1;
+        int longitudJuga = todosJugadores.size();
         int longitudPlant;
         String nJugador;
         String nombreEQ;
 
         //Selecciona al jugador
         this.mostrarJugadores();
-        idJugador=Gestion.sacarYcomprobarNumero(0,longitudJuga);
+        idJugador = Gestion.sacarYcomprobarNumero(0, longitudJuga);
 
         //Elimino al jugador pero guardo su nombre y su equipo
-        nJugador=todosJugadores.get(idJugador).getNombre();
-        nombreEQ=todosJugadores.get(idJugador).getEQ();
+        nJugador = todosJugadores.get(idJugador).getNombre();
+        nombreEQ = todosJugadores.get(idJugador).getEQ();
         todosJugadores.remove(idJugador);
 
         //Compruebo si estaba en algun equipo
-        if(nombreEQ!=null) {
+        if (nombreEQ != null) {
             for (int i = 0; i < longitudEQ; i++) {
 
                 //Encuentro el ID del equipo con el nombre almacenado
-                if(todosEquipos.get(i).getNombre().equals(nombreEQ)){
-                    longitudPlant=todosEquipos.get(i).getplantilla().size();
+                if (todosEquipos.get(i).getNombre().equals(nombreEQ)) {
+                    longitudPlant = todosEquipos.get(i).getplantilla().size();
 
                     //Comprueba si dicho equipo tiene al menos un jugador
-                    if(longitudPlant>0){
-                        for(int j=0; j<longitudPlant;j++){
+                    if (longitudPlant > 0) {
+                        for (int j = 0; j < longitudPlant; j++) {
 
                             //Si encuentra a un jugador con el nombre almacenado previamente, lo elimina del equipo
-                            if(todosEquipos.get(i).getplantilla().get(j).getNombre().equals(nJugador)){
+                            if (todosEquipos.get(i).getplantilla().get(j).getNombre().equals(nJugador)) {
                                 todosEquipos.get(i).getplantilla().remove(j);
                             }
                         }
@@ -496,25 +506,28 @@ public class Liga {
         int idEquipo;
         Jugador nJugador;
 
-        //Selecciona un equipo
-        this.mostrarEquiposYPlantilla();
-        System.out.println("Introduzca el id del Equipo");
-        idEquipo = Gestion.sacarYcomprobarNumero(0, longitudEQ);
-        longitudPlantilla = todosEquipos.get(idEquipo).getplantilla().size();
 
-        //Comprueba que el equipo elegido tenga al menos 1 Jugador
-        if (longitudPlantilla > 0) {
-            longitudJuga = todosJugadores.size() - 1;
-            //Este metodo, aparte de eliminar el jugador del propio equipo, devuelve un Objeto jugador
-            //para poder buscarlo en la lista todosJugadores y poner su equipo NULL
-            nJugador = todosEquipos.get(idEquipo).rmJugadordePlantilla();
-            for (int i = 0; i <= longitudJuga; i++) {
-                if (todosJugadores.get(i).equals(nJugador)) {
-                    todosJugadores.get(i).setEQ(null);
+        this.mostrarEquiposYPlantilla();
+        if(longitudEQ>0){
+            //Selecciona un equipo
+            System.out.println("Introduzca el id del Equipo");
+            idEquipo = Gestion.sacarYcomprobarNumero(0, longitudEQ);
+            longitudPlantilla = todosEquipos.get(idEquipo).getplantilla().size();
+
+            //Comprueba que el equipo elegido tenga al menos 1 Jugador
+            if (longitudPlantilla > 0) {
+                longitudJuga = todosJugadores.size() - 1;
+                //Este metodo, aparte de eliminar el jugador del propio equipo, devuelve un Objeto jugador
+                //para poder buscarlo en la lista todosJugadores y poner su equipo NULL
+                nJugador = todosEquipos.get(idEquipo).rmJugadordePlantilla();
+                for (int i = 0; i <= longitudJuga; i++) {
+                    if (todosJugadores.get(i).equals(nJugador)) {
+                        todosJugadores.get(i).setEQ(null);
+                    }
                 }
+            } else {
+                System.out.println("Este Equipo no tiene jugadores a eliminar");
             }
-        } else {
-            System.out.println("Este Equipo no tiene jugadores a eliminar");
         }
     }
 
