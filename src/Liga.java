@@ -73,12 +73,16 @@ public class Liga {
 
     //Dado los datos de un jugador, se añade un jugador con esos datos y tambien al equipo correspondiente.
     public void addJugador(String NEquipo, String nombre, String apellido, String clase) {
+
+        //Añade el jugador a la lista de todos los jugadores
         todosJugadores.add(new Jugador(nombre, apellido, clase));
         int lastJugador = todosJugadores.size() - 1;
         int longitud;
+        //Le añade el nombre del equipo al jugador elegido
         todosJugadores.get(lastJugador).setEQ(NEquipo);
         longitud = todosEquipos.size();
         for (int j = 0; j < longitud; j++) {
+            //Buscamos al equipo y cuando lo encuentra le añadimos el ultimo jugador añadiddo a la lista de jugadores
             if (todosEquipos.get(j).getNombre().equals(NEquipo)) {
                 this.addJugador(todosJugadores.get(lastJugador), j);
             }
@@ -171,15 +175,23 @@ public class Liga {
         int idEquipo = 0;
 
         this.mostrarEquipos();
-        if(longitudEQ>0){
+
+        //Comprueba que haya equipos
+        if (longitudEQ > 0) {
+
+            //Selecciona el equipo al que va a ser añadido el jugador
             System.out.println("Seleccione un equipo");
             idEquipo = Gestion.sacarYcomprobarNumero(0, longitudEQ);
 
+            //Comprueba que haya jugadores
             if (longitudJuga > 0) {
                 this.mostrarJugadores();
+
+                //Da a seleccionar un jugador
                 System.out.println("Seleccione el jugador que quiere añadir a ese equipo");
                 idJugador = Gestion.sacarYcomprobarNumero(0, longitudJuga);
 
+                //Comprueba que el jugador seleccionado NO tenga un equipo asignado
                 if (todosJugadores.get(idJugador).getEQ() == null) {
                     todosJugadores.get(idJugador).setEQ(todosEquipos.get(idEquipo).getNombre());
                     todosEquipos.get(idEquipo).getplantilla().add(todosJugadores.get(idJugador));
@@ -416,12 +428,12 @@ public class Liga {
     public void rmEquipo() {
 
         int idEquipo;
-        int longitudEQ=todosEquipos.size();
+        int longitudEQ = todosEquipos.size();
         int longitudJuga;
         String nombreEQ;
 
         this.mostrarEquiposYPlantilla();
-        if(longitudEQ>0){
+        if (longitudEQ > 0) {
             //selecciona un equipo
             System.out.println("Introduzca el id del Equipo");
             idEquipo = Gestion.sacarYcomprobarNumero(0, longitudEQ);
@@ -508,7 +520,7 @@ public class Liga {
 
 
         this.mostrarEquiposYPlantilla();
-        if(longitudEQ>0){
+        if (longitudEQ > 0) {
             //Selecciona un equipo
             System.out.println("Introduzca el id del Equipo");
             idEquipo = Gestion.sacarYcomprobarNumero(0, longitudEQ);
@@ -568,9 +580,12 @@ public class Liga {
         int longitud = todosJugadores.size() - 1;
 
         this.mostrarJugadores();
+
+        //Te da a elegir un jugador
         System.out.println("Seleccione el jugador");
         idjugador = Gestion.sacarYcomprobarNumero(0, longitud);
 
+        //Devuelve un objeto jugador
         return todosJugadores.get(idjugador);
     }
 

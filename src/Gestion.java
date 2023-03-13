@@ -128,8 +128,8 @@ public class Gestion {
                     } while (valMenuIni);
                     break;
                 case 3:
-                    int k=0;
-                    int longitudEQ=pipoliga.getTodosEquipos().size();
+                    int k;
+                    int longitudEQ = pipoliga.getTodosEquipos().size();
                     int longitudLista;
                     int numEquipos;
                     int selectorEquipos;
@@ -145,36 +145,51 @@ public class Gestion {
                     Equipo equipo2;
                     Equipo equipoAux;
 
-                        if(longitudEQ>=3){
-                            System.out.println("¿Cuántos equipos van a participar? (Entre 3 y " + cantidadEquipos + ")");
-                            numEquipos = sacarYcomprobarNumero(3, cantidadEquipos);
-                            pipoliga.mostrarEquipos();
-                                for (int i = 1; i < numEquipos + 1; i++) {
-                                    do {
-                                        valEquipo = false;
-                                        System.out.println("\n Introduce el id del equipo " + i + ":");
-                                        selectorEquipos = sacarYcomprobarNumero(0, cantidadEquipos - 1);
-                                        longitudLista = listEquipos.size();
-                                        nEQ = pipoliga.getTodosEquipos().get(selectorEquipos).getNombre();
-                                        if (longitudLista <= 0) {
-                                            listEquipos.add(pipoliga.getTodosEquipos().get(selectorEquipos));
+                    if (longitudEQ >= 3) {
+                        //Pregunta al usuario cuantos equipos participan en la liga
+                        System.out.println("¿Cuántos equipos van a participar? (Entre 3 y " + cantidadEquipos + ")");
+                        numEquipos = sacarYcomprobarNumero(3, cantidadEquipos);
+                        pipoliga.mostrarEquipos();
+                        //Crea un bucle con la cantidad definida antes
+                        for (int i = 1; i < numEquipos + 1; i++) {
+                            //Crea un bucle del que se sale cuando el equipo introducido sea correcto
+                            do {
+                                valEquipo = false;
 
-                                        } else {
-                                            k = 0;
-                                            valLista=true;
-                                            do {
-                                                if (nEQ.equals(listEquipos.get(k).getNombre())) {
-                                                    System.out.println("No se puede añadir el mismo equipo 2 veces");
-                                                    valEquipo = true;
-                                                } else {
-                                                    listEquipos.add(pipoliga.getTodosEquipos().get(selectorEquipos));
-                                                    valLista=false;
-                                                }
-                                                k++;
-                                            } while (valLista && k < longitudLista);
+                                //Pide y comprueba el id del equipo
+                                System.out.println("\n Introduce el id del equipo " + i + ":");
+                                selectorEquipos = sacarYcomprobarNumero(0, cantidadEquipos - 1);
+                                longitudLista = listEquipos.size();
+
+                                //Guarda el nombre del equipo seleccionado en una variable
+                                nEQ = pipoliga.getTodosEquipos().get(selectorEquipos).getNombre();
+
+                                //Si no hay equipos añadidos, simplemente añade el equipo
+                                if (longitudLista == 0) {
+                                    listEquipos.add(pipoliga.getTodosEquipos().get(selectorEquipos));
+
+
+                                } else {
+                                    k = 0;
+                                    valLista = true;
+                                    do {
+                                        //Comprueba con el nombre del equipo elegido, si esta ya metido en la lista
+                                        if (nEQ.equals(listEquipos.get(k).getNombre())) {
+                                            //Si se repite, sale de este bucle y vuelve al anterior para pedirte otra vez el id del equipo
+                                            System.out.println("No se puede añadir el mismo equipo 2 veces");
+                                            valEquipo = true;
+                                            valLista = false;
                                         }
-                                    } while (valEquipo);
+                                        k++;
+                                    } while (valLista && k < longitudLista);
+
+                                    //Si no se ha repetido, se introduce el equipo a la lista
+                                    if (valLista) {
+                                        listEquipos.add(pipoliga.getTodosEquipos().get(selectorEquipos));
+                                    }
                                 }
+                            } while (valEquipo);
+                        }
 
                         // Calcular el numero de jornadas de la liga en caso de que el numero de equipos
                         // sea PAR
@@ -268,7 +283,6 @@ public class Gestion {
                             System.out.println("La clasificación final de la liga ha sido:");
                             Gestion.mostrarResultados(listEquipos);
                         }
-                        valEliminar = true;
                         System.out.print("¿Desea eliminar la puntuación? ");
                         valEliminar = sacarYcomprobarYoN();
                         if (valEliminar) {
@@ -277,9 +291,9 @@ public class Gestion {
                             System.out.println("La puntuación de los equipos ha sido mantenida");
                         }
                         System.out.println("\n");
-                        }else{
-                            System.out.println("No hay suficientes equipos para empezar la liga, el minimo son 3.\n");
-                        }
+                    } else {
+                        System.out.println("No hay suficientes equipos para empezar la liga, el minimo son 3.\n");
+                    }
                     break;
                 case 4:
 
@@ -303,6 +317,7 @@ public class Gestion {
         do {
             valGeneral = true;
             try {
+                //Pide un numero
                 numeroOG = lector.nextInt();
             } catch (java.util.InputMismatchException ime) {
                 // Comprueba que se haya introducido un numero
@@ -310,11 +325,13 @@ public class Gestion {
                 valGeneral = false;
             }
             lector.nextLine();
+            //Comprueba que ese numero este en entre el rango proporcionado
             if (numeroOG < numeroMin || numeroOG > numeroMax) {
                 System.out.println("Introduzca un numero valido");
                 valGeneral = false;
             }
         } while (!valGeneral);
+        //Devuelve el numero si todo esta correcto
         return numeroOG;
     }
 
@@ -327,8 +344,11 @@ public class Gestion {
         Scanner lector = new Scanner(System.in);
         do {
             val = true;
+            //Pide un String
             datos = lector.nextLine();
-            if (datos == null || datos.equals("")) { // Si esta vacio el string, te hace repetir el nombre
+
+            // Si esta vacio el string, te hace repetir el nombre
+            if (datos == null || datos.equals("")) {
                 val = false;
                 System.out.println("Introduzca algun contenido.");
             } else {
@@ -343,6 +363,8 @@ public class Gestion {
                 }
             }
         } while (!val);
+
+        //Devuelve el String
         return datos;
     }
 
@@ -354,7 +376,7 @@ public class Gestion {
         String cadena;
         boolean comprobante = true;
         boolean comprobanteBucle;
-        System.out.println("\033[32m"+"Y"+ "\u001B[0m"+"/"+"\033[31m"+"N"+ "\u001B[0m");
+        System.out.println("\033[32m" + "Y" + "\u001B[0m" + "/" + "\033[31m" + "N" + "\u001B[0m");
         do {
             //Pide un caracter
             cadena = lector.nextLine();
@@ -387,8 +409,8 @@ public class Gestion {
         pipoliga.addJugador("RanniTawani", "maria", "navarro", "2ºA");
         pipoliga.addJugador("Pipo", "anton", "pedrolo", "1ºB");
         pipoliga.addJugador("RayoVallecano", "papo", "pipopapo", "2ºB");
-        pipoliga.addJudador("Geronimo","Francisco","1ºA");
-        pipoliga.addJudador("Toad","Pipa","2ºA");
+        pipoliga.addJudador("Geronimo", "Francisco", "1ºA");
+        pipoliga.addJudador("Toad", "Pipa", "2ºA");
         pipoliga.addJugador("DescansacionFC", "Mimir", "Two", "2ºB");
     }
 
