@@ -312,17 +312,15 @@ public class Liga {
         int longitudPlantilla;
         int longitudJuga = todosJugadores.size() - 1;
         int idEquipo = 0;
-        Jugador nJugador = null;
-
-        //Muestra y da a elegir un equipos
-        this.mostrarEquiposYPlantilla();
-        System.out.println("Introduzca el id del Equipo");
-        equipoOG = Gestion.sacarYcomprobarNumero(0, todosEquipos.size());
-        longitudPlantilla = todosEquipos.get(equipoOG).getplantilla().size();
+        Jugador nJugador;
 
         //Primero se comprueba que haya mas de 2 Equipos
         if (longitudEQ > 1) {
-
+            //Muestra y da a elegir un equipos
+            this.mostrarEquiposYPlantilla();
+            System.out.println("Introduzca el id del Equipo");
+            equipoOG = Gestion.sacarYcomprobarNumero(0, todosEquipos.size());
+            longitudPlantilla = todosEquipos.get(equipoOG).getplantilla().size();
             //Luego se comprueba que el equipo seleccionado tenga al menos 1 jugador
             if (longitudPlantilla > 0) {
 
