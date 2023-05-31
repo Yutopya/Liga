@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae9209b3-1d11-4b49-9c0b-972fabcc4e6f" name="Changes" comment="V3.1 Ultimas comprobaciones" />
+    <list default="true" id="ae9209b3-1d11-4b49-9c0b-972fabcc4e6f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LigaBuena/Liga.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LigaBuena/Liga.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LigaBuena/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LigaBuena/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,15 +42,19 @@
     <option name="showLibraryContents" value="true" />
     <option name="showScratchesAndConsoles" value="false" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Yurim/Desktop/Programacion/Programacion (asignatura)/LigaBuena&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;discord-application&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/Yurim/Desktop/Programacion/Programacion (asignatura)/LigaBuena",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "discord-application",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -53,6 +63,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1678107849558</updated>
+      <workItem from="1685523667129" duration="270000" />
     </task>
     <task id="LOCAL-00001" summary="V2.0 Jugadores independientes">
       <created>1678411493817</created>
@@ -82,8 +93,18 @@
       <option name="project" value="LOCAL" />
       <updated>1678867252828</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="V3.1 Ultimas comprobaciones">
+      <created>1678867329106</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1678867329106</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -99,7 +120,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="V2.0 Jugadores independientes" />
     <MESSAGE value="V3.0 Ultimas comprobaciones" />
-    <option name="LAST_COMMIT_MESSAGE" value="V3.0 Ultimas comprobaciones" />
+    <MESSAGE value="V3.1 Ultimas comprobaciones" />
+    <option name="LAST_COMMIT_MESSAGE" value="V3.1 Ultimas comprobaciones" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

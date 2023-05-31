@@ -397,7 +397,7 @@ public class Gestion {
         return comprobante;
     }
 
-    //Metodo que crea equipos y algunos jugadores para no tener que introducir manualmente todo el rato.
+    //Metodo que crea equipos y algunos jugadores para no tener que introducir manualmente constantemente.
 
     private void crearEquipos() {
         pipoliga.addEquipo("Pipo");
